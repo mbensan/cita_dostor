@@ -6,8 +6,18 @@
       <h1 class="text-center">Hola, {{session.user.name}}</h1>
     </div>
   </div>
-  <section>
-    <a href="/authors" class="btn btn-primary">Autores</a>
-    <a href="/books" class="btn btn-primary">Libros</a>
+  <section class="row">
+    <div class="col-7">
+      <h2 class="text-center">
+        Citas del Dostor
+      </h2>
+    </div>
+    <div class="col-5">
+      <form class="p-3 bg-secondary border">
+        <input type="text" name="texto" id="texto">
+        <input type="submit" value="Buscar">
+      </form>
+    </div>
   </section>
+
 {% endblock %}

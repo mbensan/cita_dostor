@@ -2,7 +2,7 @@ from app.models.connection import MySQLConnection
 from flask import flash
 
 MySQLConnection().query_db('''
-    CREATE TABLE IF NOT EXISTS `world`.`books` (
+    CREATE TABLE IF NOT EXISTS `books` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(255) NOT NULL,
     `num_pages` INT NOT NULL,
