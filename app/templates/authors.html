@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block container %}
+  <div class="row">
+    <div class="col-6">
+      <form action="/authors/new" method="post">
+        <h3 class="text-success text-center">Ingrese un Nuevo Autor</h3>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Nombre</label>
+          <input type="text" class="form-control" name="name">
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Autor</button>
+      </form>
+    </div>
+    <div class="col-6">
+      <h3 class="text-center">Lista de Autores</h3>
+      <ul class="list-group">
+        {% for author in authors %}
+          <li class="list-group-item">
+            {{author.name}}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

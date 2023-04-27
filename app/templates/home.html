@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block container %}
+  <div class="row">
+    <div class="col-8 offset-2">
+      <h1 class="text-center">Hola, {{session.user.name}}</h1>
+    </div>
+  </div>
+  <section>
+    <a href="/authors" class="btn btn-primary">Autores</a>
+    <a href="/books" class="btn btn-primary">Libros</a>
+  </section>
+{% endblock %}
