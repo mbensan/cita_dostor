@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block container %}
+  <section class="row mt-3">
+    <div class="col-6 offset-3">
+      <h3 class="text-center">Nueva Cita:</h3>
+      <form action="/new-cita" method="post">
+        <input type="hidden" name="paciente_id" value="{{session.user.id}}">
+        <div class="mb-3">
+          <label class="form-label">Fecha:</label>
+          <input class="form-control" type="date" name="fecha" id="fecha">
+          <label class="form-label">Hora:</label>
+          <input class="form-control" type="time" name="hora" id="hora">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">sintomas:</label>
+          <textarea class="form-control" name="sintomas"></textarea>
+        </div>
+        <div class="mb-3">
+          <input class="btn btn-primary" type="submit" value="Agendar">
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock %}

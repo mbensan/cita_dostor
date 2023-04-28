@@ -2,8 +2,11 @@
 
 {% block container %}
   <div class="row">
-    <div class="col-8 offset-2">
-      <h1 class="text-center">Hola, {{session.user.name}}</h1>
+    <div class="col-8">
+      <h5 class="text-center text-success">Hola, {{session.user.name}}</h5>
+    </div>
+    <div class="col-4">
+      <a href="/new-cita">Agregar una Cita</a>
     </div>
   </div>
   <section class="row">
@@ -18,6 +21,34 @@
         <input type="submit" value="Buscar">
       </form>
     </div>
+  </section>
+  <section class="mt-4">
+    <table class="table table-stripped">
+      <thead>
+        <tr>
+          <th scope="col">Fecha</th>
+          <th scope="col">Hora</th>
+          <th scope="col">Paciente</th>
+          <th scope="col">Síntomas</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cita in citas %}
+          <tr>
+            <th scope="row">{{cita.fecha}}</th>
+            <td>{{cita.hora}}</td>
+            <td>{{cita.name}}</td>
+            <td>{{cita.sintomas}}</td>
+            <td>
+              {% if cita.paciente_id == session.user.id %}
+                <a href="/delete-cita/{{cita.id}}" class="btn btn-danger">Borrar</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </section>
 
 {% endblock %}

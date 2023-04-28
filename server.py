@@ -3,8 +3,10 @@ from app import app
 from app.controllers.authors import authors
 from app.controllers.books import books
 from app.controllers.auth import auth
+from app.controllers.citas import citas
 
 app.register_blueprint(auth)
+app.register_blueprint(citas)
 app.register_blueprint(authors, url_prefix='/authors')
 app.register_blueprint(books, url_prefix='/books')
 

@@ -1,5 +1,6 @@
 from flask import session, redirect, render_template, Blueprint, request, flash
 from app.models.user_model import User
+from app.models.cita_model import Cita
 from app.decorators import login_required
 
 auth = Blueprint('auth', __name__)
@@ -7,7 +8,8 @@ auth = Blueprint('auth', __name__)
 @auth.route('/')
 @login_required
 def home():
-    return render_template('home.html')
+    citas = Cita.get_all()
+    return render_template('home.html', citas=citas)
 
 
 @auth.route('/login')
