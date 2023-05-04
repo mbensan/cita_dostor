@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block container %}
+  <div class="row">
+    <div class="col-6">
+      <form action="/books/new" method="post">
+        <h3 class="text-success text-center">Ingrese un Nuevo Libro (versión con AJAX)</h3>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Título</label>
+          <input type="text" class="form-control" name="title">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Número de páginas</label>
+          <input type="text" class="form-control" name="num_pages">
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Libro</button>
+      </form>
+    </div>
+    <div class="col-6">
+      <h3 class="text-center">Lista de Libros</h3>
+      <ul class="list-group" id="lista-libros">
+          <li class="list-group-item">
+            Libro 1
+          </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    function load_books () {
+      fetch('/api/books')
+      .then(function (resp) {
+        return resp.json()
+      })
+      .then(function (resp) {
+        console.log(resp)
+        render_books(resp['books'])
+      })
+    }
+
+    load_books()
+
+    function render_books(books) {
+      let contenido_lista = ''
+      for (let i=0; i<books.length; i++) {
+        contenido_lista += '<li class="list-group-item">' + books[i]['title'] + '</li>'
+      }
+
+      const ul = document.querySelector('#lista-libros')
+      ul.innerHTML = contenido_lista
+    }
+  </script>
+{% endblock %}

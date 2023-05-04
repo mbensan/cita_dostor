@@ -26,5 +26,5 @@ def new():
     Book.add(title, num_pages)
     # 5. Flash con mensaje de ingreso exitoso
     flash(f'Libro {title} agregado con éxito', 'success')
-    # 5. Redirigimos a ruta de autores
+    # 5. Redirigimos a ruta de libros
     return redirect('/books')

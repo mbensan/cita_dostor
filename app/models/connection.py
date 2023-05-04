@@ -1,13 +1,14 @@
 import pymysql
+from app import app
 
 class MySQLConnection:
 
     def __init__(self):
         # cambiar el usuario y la contraseña según sea necesario
-        connection = pymysql.connect(host = 'localhost',
-            user = 'root', 
-            password = '1005', 
-            db = 'cita_dostor',
+        connection = pymysql.connect(host = app.config['DB_HOST'],
+            user = app.config['DB_USER'], 
+            password = app.config['DB_PASSWORD'], 
+            db = app.config['DB_NAME'],
             charset = 'utf8mb4',
             cursorclass = pymysql.cursors.DictCursor,
             autocommit = True
