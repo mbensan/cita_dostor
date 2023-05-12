@@ -11,6 +11,13 @@ def home():
     #return render_template('countries.html', countries=countries_dicts)
     return render_template('authors.html', authors=authors_dicts)
 
+
+@authors.route('/<id>')
+def author_view(id):
+    author = Author.get_one(id)
+    return render_template('author.html', author=author)
+
+
 @authors.route('/new', methods=['POST'])
 def new():
     # 1. Recuperamos datos del formulario

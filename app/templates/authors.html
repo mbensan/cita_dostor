@@ -17,7 +17,7 @@
       <ul class="list-group">
         {% for author in authors %}
           <li class="list-group-item">
-            {{author.name}}
+            <a href="/authors/{{author.id}}">{{author.name}}</a>
           </li>
         {% endfor %}
       </ul>

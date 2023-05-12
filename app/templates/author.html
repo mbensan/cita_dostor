@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block container %}
+  <div class="row">
+    <div class="col-6">
+      <h3>Libros que ha escrito este {{author.name}}</h3>
+
+    </div>
+    <div class="col-6">
+      <h3>Agregar nuevo libro</h3>
+      <select name="new_libro_id" id="new_libro_id">
+        <option value="1">Libro 1</option>
+        <option value="2">Libro 2</option>
+      </select>
+      <button class="btn btn-success">Agregar</button>
+    </div>
+  </div>
+{% endblock %}

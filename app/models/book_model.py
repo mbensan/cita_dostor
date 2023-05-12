@@ -1,5 +1,6 @@
 from app.models.connection import MySQLConnection
 from flask import flash
+from app.models.base_model import Base
 
 MySQLConnection().query_db('''
     CREATE TABLE IF NOT EXISTS `books` (
@@ -12,7 +13,9 @@ MySQLConnection().query_db('''
     ENGINE = InnoDB;
 ''')
 
-class Book:
+class Book(Base):
+
+    table = 'books'
 
     @classmethod
     def validate(cls, form):
@@ -39,12 +42,7 @@ class Book:
         
         return is_valid
 
-    @classmethod
-    def get_all(cls):
-        books = MySQLConnection().query_db('select * from books')
-        return books
     
-
     @classmethod
     def add(cls, title, num_pages):
         query = 'insert into books (title, num_pages) values (%(title)s, %(num_pages)s)'

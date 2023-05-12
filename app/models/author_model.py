@@ -1,5 +1,6 @@
 from app.models.connection import MySQLConnection
 from flask import flash
+from app.models.base_model import Base
 
 MySQLConnection().query_db('''
     CREATE TABLE IF NOT EXISTS `authors` (
@@ -11,7 +12,22 @@ MySQLConnection().query_db('''
     ENGINE = InnoDB;
 ''')
 
-class Author:
+# tabla intermedia
+MySQLConnection().query_db('''
+    CREATE TABLE IF NOT EXISTS `writes` (
+    `author_id` int NOT NULL,
+    `book_id` int NOT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT NOW(),
+    `updated_at` DATETIME NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (author_id, book_id),
+    foreign key (author_id) references authors(id),
+    foreign key (book_id) references books(id)
+    )
+''')
+
+class Author(Base):
+
+    table = 'authors'
 
     @classmethod
     def validate(cls, form):
@@ -29,40 +45,6 @@ class Author:
         
         return is_valid
 
-    @classmethod
-    def get_all(cls):
-        authors = MySQLConnection().query_db('select * from authors')
-        return authors
-    
-    @classmethod
-    def get_one(cls, id):
-        query = 'select * from countries where id=%(id)s'
-        data = {
-            'id': id
-        }
-        countries = MySQLConnection().query_db(query, data)
-        return countries[0]
-    
-    @classmethod
-    def get_with_cities(cls, id):
-        country = cls.get_one(id)
-        query = 'select * from cities where country_id=%(id)s'
-        data = {
-            'id': id
-        }
-        cities = MySQLConnection().query_db(query, data)
-        country['cities'] = cities
-        print(country)
-        return country
-    
-    @classmethod
-    def delete(cls, id):
-        query = 'delete from countries where id=%(id)s'
-        data = {
-            'id': id
-        }
-        MySQLConnection().query_db(query, data)
-        return 'País eliminado'
     
     @classmethod
     def add(cls, name):
