@@ -13,7 +13,6 @@ def create_form():
 
 @citas.route('/delete-cita/<id>')
 def delete(id):
-    # acá es donde debo borrar la cita
     Cita.delete(id)
     flash('Cita eliminada', 'warning')
     return redirect('/')

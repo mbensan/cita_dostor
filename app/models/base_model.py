@@ -1,7 +1,6 @@
 from app.models.connection import MySQLConnection
 from flask import flash
 
-
 class Base:
 
     table = 'none'

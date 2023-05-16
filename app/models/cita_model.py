@@ -2,6 +2,8 @@ from flask import flash, session
 from app.models.connection import MySQLConnection
 from datetime import datetime
 import time
+from app.models.base_model import Base
+
 
 
 MySQLConnection().query_db('''
@@ -18,7 +20,9 @@ MySQLConnection().query_db('''
     ENGINE = InnoDB;
 ''')
 
-class Cita:
+class Cita(Base):
+
+    table = 'citas'
     
     @classmethod
     def validate (cls, form):
@@ -79,53 +83,16 @@ class Cita:
         return new_cita_id
     
     @classmethod
-    def get_all(cls):
-        query = 'select * from citas join users on citas.paciente_id = users.id order by fecha desc'
-        results = MySQLConnection().query_db(query)
-        #print(results)
-        return results
-    
-    @classmethod
     def get_by_fecha(cls, fecha):
         query = 'select * from citas where fecha=%(fecha)s'
         data = {'fecha': fecha}
         results = MySQLConnection().query_db(query, data)
         print(results)
         return results
-    
+
     @classmethod
-    def delete(cls, id):
-        # 1. Primero verificamos que la cita efectivamente exista
-        cita = cls.get_one(id)
-        if cita is None:
-            return
+    def get_all_with_users(cls):
+        query = 'select * from citas join users where citas.paciente_id=users.id'
         
-        # 2. Verificamos que la cita efectivamente pertenezca al usuario que está logueado
-        if cita['paciente_id'] != session['user']['id']:
-            return
-
-        # Finalmente borramos la cita
-        id = int(id)
-        query = 'delete from citas where id=%(id)s'
-        data = {
-            'id': id
-        }
-
-        # 3. Ejecutamos la consulta
-        MySQLConnection().query_db(query, data)
-    
-    @classmethod
-    def get_one(cls, id):
-        id = int(id)
-
-        query = 'select * from citas where id=%(id)s'
-        data = {
-            'id': id
-        }
-
-        #  Ejecutamos la consulta
-        results = MySQLConnection().query_db(query, data)
-        if len(results) > 0:
-            return results[0]
-        else:
-            return None
+        results = MySQLConnection().query_db(query)
+        return results

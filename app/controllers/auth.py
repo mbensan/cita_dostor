@@ -8,7 +8,8 @@ auth = Blueprint('auth', __name__)
 @auth.route('/')
 @login_required
 def home():
-    citas = Cita.get_all()
+    citas = Cita.get_all_with_users()
+    #import pdb; pdb.set_trace()
     return render_template('home.html', citas=citas)
 
 

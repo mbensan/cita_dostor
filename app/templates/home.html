@@ -36,9 +36,9 @@
       <tbody>
         {% for cita in citas %}
           <tr>
-            <th scope="row">{{cita.fecha}}</th>
-            <td>{{cita.hora}}</td>
-            <td>{{cita.name}}</td>
+            <th scope="row">{{cita.fecha | fecha}}</th>
+            <td>{{cita.hora | hora}}</td>
+            <td>{{cita.name }}</td>
             <td>{{cita.sintomas}}</td>
             <td>
               {% if cita.paciente_id == session.user.id %}
