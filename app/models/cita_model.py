@@ -13,6 +13,7 @@ MySQLConnection().query_db('''
     hora time not null,
     sintomas text not null,
     paciente_id int not null,
+    examenes varchar(255),
     `created_at` DATETIME NOT NULL DEFAULT NOW(),
     `updated_at` DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY (`id`),
@@ -62,14 +63,15 @@ class Cita(Base):
         return is_valid
     
     @classmethod
-    def add(cls, fecha, hora, sintomas, paciente_id):
+    def add(cls, fecha, hora, sintomas, paciente_id, examenes):
         # 2. Generamos la query
-        query = 'insert into citas (fecha, hora, sintomas, paciente_id) values (%(fecha)s, %(hora)s, %(sintomas)s, %(paciente_id)s)'
+        query = 'insert into citas (fecha, hora, sintomas, paciente_id, examenes) values (%(fecha)s, %(hora)s, %(sintomas)s, %(paciente_id)s, %(examenes)s)'
         data = {
             'fecha': fecha,
             'hora': hora,
             'sintomas': sintomas,
-            'paciente_id': paciente_id
+            'paciente_id': paciente_id,
+            'examenes': examenes
         }
         # Validamos que no existan otras 3 citas en la fecha
         otras_citas = cls.get_by_fecha(fecha)
