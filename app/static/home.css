@@ -1,0 +1,10 @@
+#add-cita-btn {
+  position: fixed;
+  font-size: 3.4rem;
+  bottom: 1rem;
+  right: 1rem;
+}
+#add-cita-btn a {
+  color: greenyellow;
+  text-decoration: none;
+}
